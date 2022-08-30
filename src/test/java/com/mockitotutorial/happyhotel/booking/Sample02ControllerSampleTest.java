@@ -22,6 +22,9 @@ public class Sample02ControllerSampleTest {
 
 	private URL base;
 
+	@MockBean
+	private BookingService bookingService;
+
 	@Autowired
 	private TestRestTemplate template;
 	
@@ -34,6 +37,7 @@ public class Sample02ControllerSampleTest {
 	public void getHello() throws Exception {
 		// given
 		String expected = "Greetings from The Happy Hotel. We've got enough beds for 10 guests!";
+		when(bookingService.getAvailablePlaceCount()).thenReturn(10);
 
 		// when
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
